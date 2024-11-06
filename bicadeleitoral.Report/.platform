@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "bicadeleitoral"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c9def1f6-6d2c-431d-a502-0ea2bc8f3ae0"
+  }
+}
