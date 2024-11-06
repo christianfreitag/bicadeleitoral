@@ -6958,7 +6958,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Fonte = PostgreSQL.Database(\"localhost:54323\", \"cadeleitoral\"),",
+                "    Fonte = PostgreSQL.Database(\"10.16.45.143:54323\", \"cadeleitoral\"),",
                 "    cadeleitoral_cadeleitoral = Fonte{[Schema=\"cadeleitoral\",Item=\"cadeleitoral\"]}[Data]",
                 "in",
                 "    cadeleitoral_cadeleitoral"
@@ -7243,7 +7243,7 @@
             "source": {
               "expression": [
                 "let",
-                "    Fonte = PostgreSQL.Database(\"localhost:54323\", \"cadeleitoral\"),",
+                "    Fonte = PostgreSQL.Database(\"10.16.45.143:54323\", \"cadeleitoral\"),",
                 "    cadeleitoral_eleitorado_por_estado = Fonte{[Schema=\"cadeleitoral\",Item=\"eleitorado_por_estado\"]}[Data]",
                 "in",
                 "    cadeleitoral_eleitorado_por_estado"

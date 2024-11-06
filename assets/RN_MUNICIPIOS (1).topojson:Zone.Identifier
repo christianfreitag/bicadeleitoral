@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://gitlab.tre-rn.jus.br/datascience/airflow/bi/bicad_eleitoral/-/blob/main/RN_MUNICIPIOS.topojson?ref_type=heads
+HostUrl=https://gitlab.tre-rn.jus.br/datascience/airflow/bi/bicad_eleitoral/-/raw/main/RN_MUNICIPIOS.topojson?ref_type=heads&inline=false
