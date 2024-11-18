@@ -2394,16 +2394,6 @@
                     }
                   },
                   {
-                    "Aptos": {
-                      "Source": {
-                        "Agent": "PowerBI.VisualColumnRename",
-                        "Type": "External"
-                      },
-                      "State": "Suggested",
-                      "Weight": 0.9
-                    }
-                  },
-                  {
                     "Quantidade de Eleitores": {
                       "Source": {
                         "Agent": "PowerBI.VisualColumnRename",
@@ -7482,7 +7472,7 @@
             "annotations": [
               {
                 "name": "PBI_FormatHint",
-                "value": "{\"isGeneralNumber\":true}"
+                "value": "{\"isDecimal\":true}"
               }
             ],
             "expression": [
@@ -7497,6 +7487,7 @@
               "    [secao]",
               ")"
             ],
+            "formatString": "#,0",
             "lineageTag": "101d5ec4-ff4a-4b1b-9609-cdd0b7bd84c0"
           },
           {
