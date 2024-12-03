@@ -1,93 +1,170 @@
-# bicadeleitoral
+# BICADELEITORAL: Visualizações de Dados
+
+## Visão Geral
+
+Este projeto tem como objetivo desenvolver um dashboard de acompanhamento de emissões de cadastros no aplicativo do etitulo, é um aplicativo móvel para obtenção da via digital do título de eleitor.
+A ferramenta de visualização utilizada é o **Power BI**, que extrai os dados da camada 3 do datalake do TRE-RN.
+
+---
+
+## Sobre as Visualizações
+
+As visualizações são criadas para ajudar na análise e tomada de decisões com base nos dados processados.
+A ferramenta utilizada para criação dos dashboards é o **Power BI**.
+A visualização é dividida em duas paginas, a capa e as informações gerais do etitulo.
+
+### Capa
+
+Esta pagina é uma apresentação do painel, e contém alguns elementos graficos. Seu propósito é apresentar uma descrição reduzida do painel, mostrar a última data de atualização e a autoria do desenvolvimento.
 
 
+![Capa etitulo](assets/imagesReadme/etitulo_capa.png)
 
-## Getting started
+#### Visuais:
+- **Indicador - Data de atualização**: Ao lado do botão tem um cartão que apresenta a data de atualização dos dados
+- **Botão**: Único botão na tela, ele leva a página principal do painel
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+### Geral e-Título
 
-## Add your files
+Este painel do Power BI apresenta uma visualização geral dos dados em relação as primeiras emissões, reemissões e total de emissões para cada estado do Brasil. Além disso permite ver um histórico das emissões dos últimos 7 dias.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+![geral etitulo](assets/imagesReadme/etitulo_geral.png)
 
+#### Visuais:
+- **Indicador - Primeiras emissões**: Indicador apresentando o total selecionado de primeiras emissões.
+- **Indicador - Reemissões**: Indicador apresentando o total selecionado de reemisões.
+- **Indicador - Total de emissões**: Indicador apresentando o total selecionado das emissões. Esse valor representa a soma das primeiras emissões e reemissões.
+- **Gráficos de linha - Primeiras Emissões/Reemissões/Total de Emissões**: Existem três botões na parte superior do painel. Esses botões alternam a visibilidade dos gráficos de linha, em que cada gráfico mostra os últimos 7 dias de um dos tipos de emissões.
+- **Gráfico de coluna - Primeiras Emissões e Reemissões por Estado**: Gráfico de coluna horizontal mostrando a quantidade de primeiras emissões e reemissões por estado.
+- **Tabela - Quantitativo de Emissões e Eleitorado**: Tabela que mostra uma visão geral dos quantitativos de emissões e do eleitorado. Além disso, exibe o % da quantidade de emissões em relação ao eleitorado.
+- **Gráficos Rosca -  Emissões totais por região**: Gráfico rosca dividindo os quantitativos de emissões por região.
+- **Gráfico de coluna -  % Emissões por UF**: Gráfico apresenta a % de Emissões (Emissões Totais/eleitorado do estado) por UF
+
+---
+
+## Sobre os Dados
+
+Os dados utilizados para criação dos gráficos são retirados do DataLake, a partir das tabelas:
+
+<details>
+<summary>etitulo.etitulo.etitulo</summary>
+
+| Campo                      | Descrição                                                            | Tipo       | Exemplo                        |
+|----------------------------|----------------------------------------------------------------------|------------|--------------------------------|
+| **UF**                     | UF                                                                   | timestamp  | RN                             |
+| **QTDE_PRIMEIRA_EMISSAO**  | Quantidade das primeiras emissões                                    | inteiro    | 887110                         |
+| **QTDE_REMISSAO**          | Quantidade das reemissões                                            | inteiro    | 2541                           |
+| **QTDE_EMISSAO**           | Quantidade das emissões                                              | inteiro    | 42232                          |
+| **DATA_RASPAGEM**          | Data atualizações dos dados                                          | timestamp  | 2024-09-14 04:00:00+00:00      |
+| **DATA_OBJETO**            | Data atualizações dos dados                                          | timestamp  | 2024-09-14 04:00:00+00:00      |
+| **SG_UF**                  | UF                                                                   | string     | CO                             |
+| **QT_ELEITORES_PERFIL**    | Quantidade Eleitores                                                 | inteiro    | 42232                          |
+| **EXTRAIDO_EM**            | Data atualizações dos dados                                          | timestamp  | 2024-09-14 04:00:00+00:00      |
+| **regiao_nome**            | Região do estado                                                     | string     | Centro-Oeste                   |
+| **uf_brlocalidades**       | UF                                                                   | string     | RJ                             |
+| **populacao_total**        | População total do estado                                            | inteiro    | 12223                          |
+
+</details>
+
+---
+## Medidas
+
+<details>
+<summary>Medidas</summary>
+
+**PrimeiraEmissaoAtual** - Quantidade de primeiras emissões considerando a ultima data (Existem varias duplicatas dos dados na tabela, então é necessário selecionar somente a última)
+```DAX
+CALCULATE(
+    SUM('etitulo etitulo'[QTDE_PRIMEIRA_EMISSAO]),
+    'etitulo etitulo'[DATA_OBJETO]=max('etitulo etitulo'[DATA_OBJETO])
+)
 ```
-cd existing_repo
-git remote add origin https://gitlab.tre-rn.jus.br/datascience/airflow/bi/bicadeleitoral.git
-git branch -M main
-git push -uf origin main
+
+**QtdReemissõesAtual** - Quantidade de reemissões considerando a última data.
+```DAX
+CALCULATE(
+    SUM('etitulo etitulo'[QTDE_REMISSAO]),
+    'etitulo etitulo'[DATA_OBJETO]=max('etitulo etitulo'[DATA_OBJETO])
+)
 ```
 
-## Integrate with your tools
+**QtdEmissõesTotais** - Quantidade de emissões totais considerando ultima data
+```DAX
+CALCULATE(
+    SUM('etitulo etitulo'[QTDE_EMISSAO]),
+    'etitulo etitulo'[DATA_OBJETO]=max('etitulo etitulo'[DATA_OBJETO])
+)
+```
 
-- [ ] [Set up project integrations](https://gitlab.tre-rn.jus.br/datascience/airflow/bi/bicadeleitoral/-/settings/integrations)
+**% Emissões por Eleitorado** - Divisão de quantidade de emissões totais pela quantidade de eleitores em determinado estado.
+```DAX
+VAR totalEleitores = CALCULATE(
+    SUM('etitulo etitulo'[QT_ELEITORES_PERFIL]),
+    'etitulo etitulo'[DATA_OBJETO]=max('etitulo etitulo'[DATA_OBJETO])
+)
 
-## Collaborate with your team
+VAR totalEmissoes = [QtdEmissaoTotal]
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+RETURN DIVIDE(totalEmissoes,totalEleitores)
+```
 
-## Test and Deploy
+**Qtd. Eleitorado** - Total de Eleitores em um estado considerando a última atualização
+```DAX
+CALCULATE(
+    SUM('etitulo etitulo'[QT_ELEITORES_PERFIL]),
+    'etitulo etitulo'[DATA_OBJETO]=max('etitulo etitulo'[DATA_OBJETO])
+)
+```
 
-Use the built-in continuous integration in GitLab.
+**Rank % Emissões** - Rank de % de Emissões
+```DAX
+RANKX(
+    ALL('etitulo etitulo'[UF]),
+    [% Emissoes por Eleitorado],
+    ,DESC,
+    Skip
+)
+```
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+**Rank % Emissões RN** - A posição do Rank de % de Emissões (Usei separado dessa forma e não fiz um filtro, pois utilizei dentro do texto)
+```DAX
+CALCULATE(
+    [Rank % Emissões],
+    'etitulo etitulo'[UF]="RN"
+)
+```
 
-***
+**QtdEmissãoTotalRN** - Quantidade de emissões totais somente para o estado do RN
+```DAX
+CALCULATE(
+    SUM('etitulo etitulo'[QTDE_EMISSAO]),
+    'etitulo etitulo'[DATA_OBJETO]=max('etitulo etitulo'[DATA_OBJETO]),
+    'etitulo etitulo'[UF]="RN"
+)
+```
 
-# Editing this README
+**Rank % Emissões RN Nordeste** - Posição do rank da % Emissão do RN dentro da região Nordeste
+```DAX
+CALCULATE(
+    [Rank % Emissões],
+    'etitulo etitulo'[UF]="RN",
+    'etitulo etitulo'[regiao_nome]="Nordeste"
+)
+```
+</details>
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
 
-## Suggestions for a good README
+--
+## Requisitos
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+- **Power BI**: Para criação das visualizações.
+---
 
-## Name
-Choose a self-explaining name for your project.
+<!-- ## Instruções de Instalação
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+1. Clone o repositório:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+```bash
+git clone https://gitlab.com/seu-usuario/projeto-etl-visualizacoes.git
+cd projeto-etl-visualizacoes -->
