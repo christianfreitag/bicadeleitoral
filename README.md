@@ -18,18 +18,18 @@ A visualização é dividida em duas paginas, a capa e as informações gerais d
 Esta pagina é uma apresentação do painel, e contém alguns elementos graficos. Seu propósito é apresentar uma descrição reduzida do painel, mostrar a última data de atualização e a autoria do desenvolvimento.
 
 
-![Capa etitulo](assets/imagesReadme/etitulo_capa.png)
+![Capa etitulo](assets/imagesReadme/capa_cadeleitoral.png)
 
 #### Visuais:
 - **Indicador - Data de atualização**: Ao lado do botão tem um cartão que apresenta a data de atualização dos dados
 - **Botão**: Único botão na tela, ele leva a página principal do painel
 
 
-### Geral e-Título
+### Geral cadEleitoral
 
 Este painel do Power BI apresenta uma visualização geral dos dados em relação as primeiras emissões, reemissões e total de emissões para cada estado do Brasil. Além disso permite ver um histórico das emissões dos últimos 7 dias.
 
-![geral etitulo](assets/imagesReadme/etitulo_geral.png)
+![geral etitulo](assets/imagesReadme/geral_3_cadeleitoral.png)
 
 #### Visuais:
 - **Indicador - Primeiras emissões**: Indicador apresentando o total selecionado de primeiras emissões.
