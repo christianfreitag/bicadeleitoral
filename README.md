@@ -2,7 +2,7 @@
 
 ## Visão Geral
 
-Este projeto tem como objetivo desenvolver um dashboard de acompanhamento de emissões de cadastros no aplicativo do etitulo, é um aplicativo móvel para obtenção da via digital do título de eleitor.
+Este projeto tem como objetivo desenvolver um dashboard para análise do cadastro eleitoral do Rio Grande do Norte. O painel apresenta informações sobre o eleitorado, explorando diferentes aspectos, como bairros, municípios, zonas eleitorais e outros. Ele oferece uma visão geral abrangente das informações.
 A ferramenta de visualização utilizada é o **Power BI**, que extrai os dados da camada 3 do datalake do TRE-RN.
 
 ---
@@ -11,7 +11,7 @@ A ferramenta de visualização utilizada é o **Power BI**, que extrai os dados 
 
 As visualizações são criadas para ajudar na análise e tomada de decisões com base nos dados processados.
 A ferramenta utilizada para criação dos dashboards é o **Power BI**.
-A visualização é dividida em duas paginas, a capa e as informações gerais do etitulo.
+A visualização é dividida em 10 paginas:
 
 ### Capa
 
@@ -25,21 +25,52 @@ Esta pagina é uma apresentação do painel, e contém alguns elementos graficos
 - **Botão**: Único botão na tela, ele leva a página principal do painel
 
 
-### Geral cadEleitoral
+### Geral
 
-Este painel do Power BI apresenta uma visualização geral dos dados em relação as primeiras emissões, reemissões e total de emissões para cada estado do Brasil. Além disso permite ver um histórico das emissões dos últimos 7 dias.
+Este painel no Power BI oferece uma visão consolidada dos dados, reunindo informações de diferentes seções do dashboard. Ele apresenta uma perspectiva geral, proporcionando uma compreensão ampla e integrada das informações disponíveis.
 
-![geral etitulo](assets/imagesReadme/geral_3_cadeleitoral.png)
+![geral cadeleitoral](assets/imagesReadme/geral_1_cadeleitoral.png)
+
+Essa pagina do painel tem duas outras variações, que são criadas a partir dos indicadores ao apetrar em um dos seguintes botões: Eleitores por Zona, Quantitativos por Estado e Grupos de Eleitores. As variações podem ser vistas na imagem abaixo:
+
+**Quantitativo por Estado:**
+![geral cadeleitoral](assets/imagesReadme/geral_2_cadeleitoral.png)
+
+**Grupos de Eleitores**
+![geral cadeleitoral](assets/imagesReadme/geral_3_cadeleitoral.png)
+
 
 #### Visuais:
-- **Indicador - Primeiras emissões**: Indicador apresentando o total selecionado de primeiras emissões.
-- **Indicador - Reemissões**: Indicador apresentando o total selecionado de reemisões.
-- **Indicador - Total de emissões**: Indicador apresentando o total selecionado das emissões. Esse valor representa a soma das primeiras emissões e reemissões.
-- **Gráficos de linha - Primeiras Emissões/Reemissões/Total de Emissões**: Existem três botões na parte superior do painel. Esses botões alternam a visibilidade dos gráficos de linha, em que cada gráfico mostra os últimos 7 dias de um dos tipos de emissões.
-- **Gráfico de coluna - Primeiras Emissões e Reemissões por Estado**: Gráfico de coluna horizontal mostrando a quantidade de primeiras emissões e reemissões por estado.
-- **Tabela - Quantitativo de Emissões e Eleitorado**: Tabela que mostra uma visão geral dos quantitativos de emissões e do eleitorado. Além disso, exibe o % da quantidade de emissões em relação ao eleitorado.
-- **Gráficos Rosca -  Emissões totais por região**: Gráfico rosca dividindo os quantitativos de emissões por região.
-- **Gráfico de coluna -  % Emissões por UF**: Gráfico apresenta a % de Emissões (Emissões Totais/eleitorado do estado) por UF
+- **Indicador - Eleitores:** Total de eleitores cadastrados (2.649.624).
+- **Indicador - Eleitores Idosos:** Quantidade de eleitores idosos (546.832).
+- **Indicador - Possui Deficiência:** Número de eleitores com deficiência (35.421).
+- **Indicador - Possui Nome Social:** Quantidade de eleitores com nome social registrado (844).
+- **Indicador - Possui Biometria:** Total de eleitores com biometria registrada (2.488.942).
+- **Gráfico de Coluna Horizontal - Eleitores Aptos por Zona Eleitoral:** Apresenta o quantitativo de eleitores aptos por cada zona eleitoral, com os valores ordenados.
+- **Gráfico de Coluna Horizontal - Eleitores por Estado:** Apresenta o quantitativo de eleitores por estado.
+- **Gráfico de Rosca - Eleitores Interprete Libras:** Representação da distribuição percentual dos eleitores entre (SIM/NÃO/NÃO INFORMADO)
+- **Gráfico de Rosca - Eleitores Quilombola:** Representação da distribuição percentual dos eleitores entre (SIM/NÃO/NÃO INFORMADO)
+- **Gráfico de Rosca - Eleitores por Raça** Representação da distribuição percentual dos eleitores entre (NÃO INFORMADO/BRANCA/PARDA/PRETA/AMAERA/INDIGENA)
+- **Gráfico de Rosca - Eleitores por identidade de gênero** Representação da distribuição percentual dos eleitores entre (NÃO INFORMADO/PREFERE NÃO RESPONDER/CISGÊNERO/TRANSGÊNERO)
+- **Tabela - Municípios com Maior Ocupação:** Mostra a porcentagem de ocupação e o número total de eleitores por município.
+- **Gráfico de Pizza - Eleitores por Sexo:** Representa a distribuição percentual dos eleitores entre masculino (47,46%) e feminino (52,54%).
+- **Indicadores Resumidos na Parte Inferior:** Zonas Eleitorais: Quantidade de zonas (60).
+- **Municípios:** Total de municípios (167).
+- **% Eleitorado:** Percentual do eleitorado abrangido (100%).
+- **Locais de Votação:** Número total de locais de votação (1.544).
+- **Seções Eleitorais:** Quantidade de seções (8.113).
+- **Informação Adicional:** O painel exibe que os dados foram extraídos do portal de dados abertos do TSE, com um botão para acessar o portal.
+
+
+#### Filtros
+- **Município:** Permite filtrar os dados por município.
+- **Zona Eleitoral:** Filtra os dados com base na zona eleitoral.
+- **Bairros:** Oferece a opção de filtrar por bairros.
+- **Local de Votação:** Permite filtrar com base nos locais de votação.
+- **Faixa Etária:** Filtra os dados de acordo com a faixa etária dos eleitores.
+- **Grau de Instrução:** Filtra os dados com base no grau de instrução dos eleitores.
+- **Estado Civil:** Permite filtrar de acordo com o estado civil dos eleitores.
+- **Intérprete de Libras:** Filtra os dados considerando a necessidade de intérprete de Libras.
 
 ---
 
